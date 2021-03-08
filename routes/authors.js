@@ -1,0 +1,48 @@
+const express = require('express')
+const router = express.Router()
+const Author = require('../models/author')
+
+//All Authors Route (Controller)
+router.get('/', async (req, res) => {
+    let searchOptions = {}
+    if (req.query.name != null && req.query.name != ''){
+        searchOptions.name = new RegExp(req.query.name, 'i')
+    }
+    try{
+        const authors = await Author.find(searchOptions)
+        res.render('authors/index', {
+            authors: authors, 
+            searchOptions: req.query
+        })
+    }catch{
+        res.redirect('/')
+    }
+   
+})
+
+//New Author Route
+router.get('/new', async (req, res)=>{
+    res.render('authors/new', {author: new Author()})
+})
+
+//Create authors route 
+router.post('/', async (req, res)=>{
+    //using body parser, locate object named 'name' in body
+    const author = new Author({
+    name: req.body.name
+    })
+    try{
+        const newAuthor = await author.save();
+         //redirect user to the page for the author they just created
+            //res.redirect(`authors/${newAuthor.id}`)
+             res.redirect(`authors`)
+    }catch {
+        res.render('authors/new', {
+            author: author,
+            errorMessage: 'Error creating author'
+        })
+    }
+
+})
+
+module.exports = router

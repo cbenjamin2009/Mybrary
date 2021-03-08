@@ -7,11 +7,15 @@
     <title>Mybrary</title>
 </head>
 <body>
-    <!--This creates the basic layout for all pages. The Top will be the Before, the body is all inserted page content and the after is the footer area of all pages -->
-    Before
-    <br>
+    <!--This creates the basic layout for all pages. The Top will be the Before, the body is 
+        all inserted page content and the after is the footer area of all pages -->
+        <!--Add the header section-->
+    <%- include('../partials/header.ejs') %>
+    <%- include('../partials/errorMessage.ejs') %>
+    <!--Add Body Section-->
     <%- body %>
     <br>
+    <!--Add Footer Section-->
     After
 </body>
 </html>
