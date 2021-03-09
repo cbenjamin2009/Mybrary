@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const path = require('path')
-const coverImageBasePath = 'uploads/bookCovers'
+//const path = require('path')
+//const coverImageBasePath = 'uploads/bookCovers'
 
 //create schema for database
 //This sets all the fields for Books and links to the Author Schema to link author together
@@ -25,7 +25,11 @@ const bookSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    coverImageName: {
+    coverImage: {
+        type: Buffer,
+        required: true
+    },
+    coverImageType:{
         type: String,
         required: true
     },
@@ -37,11 +41,13 @@ const bookSchema = new mongoose.Schema({
 })
 
 bookSchema.virtual('coverImagePath').get(function(){
-    if (this.coverImageName != null){
-        return path.join('/', coverImageBasePath, this.coverImageName)
+    if (this.coverImage != null && this.coverImageType != null){
+        return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
     }
 })
 
 module.exports = mongoose.model('Book', bookSchema)
 
-module.exports.coverImageBasePath = coverImageBasePath
+//module.exports.coverImageBasePath = coverImageBasePath
+
+//changed coverimage line, added cover image type and changed cover image to Buffer
