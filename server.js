@@ -13,6 +13,8 @@ const expressLayouts = require('express-ejs-layouts')
 const indexRouter = require('./routes/index')
 //author router
 const authorRouter  = require('./routes/authors')
+//book route
+const bookRouter  = require('./routes/books')
 
 //body parser module
 const bodyParser = require('body-parser')
@@ -41,6 +43,8 @@ db.once('open', () => console.log('Connected to Mongoose'))
 app.use('/', indexRouter)
 //all authors files are prepended with /authors 
 app.use('/authors', authorRouter)
+//books link prepend with /book
+app.use('/books', bookRouter)
 
 //set default port or 3000 if no ohter port specified 
 app.listen(process.env.PORT || 3000)
