@@ -19,11 +19,15 @@ const bookRouter  = require('./routes/books')
 //body parser module
 const bodyParser = require('body-parser')
 
+//Method override for Put and Delete routes
+const methodOverride = require('method-override')
+
 //setup the views and deafults for site
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
+app.use(methodOverride('_method'))
 app.use(express.static('public'))
 //use body parser
 app.use(bodyParser.urlencoded({limit: '10mb', extended: false}))
