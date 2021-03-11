@@ -5,6 +5,10 @@
 <div>Page Count: <%=book.pageCount%></div>
 <div>Description: <%=book.description%></div>
 
-<a href="/books/<%=book.id%>/edit">Edit</a>
-<%-include('../partials/deleteForm', {url:`/books/${book.id}` }) %>
-<a href="/authors/<%=book.author.id%>/edit">View Author</a>
+<div class="form-item">
+    <div class="form-row">
+        <a class="btn btn-danger" href="/books/<%=book.id%>/edit">Edit</a>
+        <%-include('../partials/deleteForm', {url:`/books/${book.id}` }) %>
+        <a class="btn btn-primary" href="/authors/<%=book.author.id%>/edit">View Author</a>        
+    </div>
+</div>
